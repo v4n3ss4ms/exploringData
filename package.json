@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "npm i && npm run sass-prod && live-server",
-    "test": "mocha *.test.js",
+    "test": "npm i && mocha *.test.js",
     "sass-dev": "sass --update --style=expanded styles.scss:styles.css",
     "sass-prod": "sass --no-source-map --style=compressed styles.scss:styles.css"
   },
