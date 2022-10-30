@@ -1,0 +1,19 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "Small dashboard for exploring data",
+  "main": "main.js",
+  "scripts": {
+    "start": "npm i && npm run sass-prod && live-server",
+    "test": "mocha *.test.js",
+    "sass-dev": "sass --update --style=expanded styles.scss:styles.css",
+    "sass-prod": "sass --no-source-map --style=compressed styles.scss:styles.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "mocha": "^8.4.0",
+    "sass": "^1.55.0"
+  }
+}
