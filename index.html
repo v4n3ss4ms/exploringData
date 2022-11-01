@@ -8,15 +8,31 @@
   </head>
   <body>
     <header>
-      <h1>
-        TBD
-      </h1>
+      <h1>Exploring data dashboard</h1>
     </header>
     <main>
-      TBD
-      <p id="result"></p>
-      <p id="success"></p>
-      <p id="error"></p>
+      <section>
+        <h2>What do you want to visualize?</h2>
+        <p>Filter and get the information you're looking for :)</p>
+        
+        <div class="filter-results">
+          <div class="select-box">
+            <label for="fieldNamesSelect" class="select-box-label">Field name</label>
+            <select name="fieldNamesSelect" id="fieldNamesSelect">
+              <option disabled selected value class="default"> -- select a field name -- </option>
+            </select>
+          </div>
+          <label class="select-box">
+            <label for="chartTypesSelect" class="select-box-label">Chart</label>
+            <select name="chartTypesSelect" id="chartTypesSelect">
+              <option disabled selected value class="default"> -- select a chart -- </option>
+            </select>
+          </div>
+        </div>
+        
+          <div class="results-box"></div>
+          <div class="error-msg error-msg--hidden"></div>
+      </section>
     </main>
   </body>
   <script type="module" src="main.js"></script>

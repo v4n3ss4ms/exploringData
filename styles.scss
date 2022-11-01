@@ -1,7 +1,59 @@
-@import 'styles/reset';
-@import 'styles/fonts';
-@import 'styles/vars';
-@import 'styles/base';
+@import "styles/reset";
+@import "styles/fonts";
+@import "styles/vars";
+@import "styles/base";
 
 // Components
-@import 'styles/main';
+@import "styles/main";
+
+body {
+  font-family: $f-primary, Arial, sans-serif;
+  color: $c-primary;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+header {
+  text-align: center;
+  background: $c-secondary;
+  color: $c-white;
+  padding: 30px 0;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.filter-results {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 20px 0;
+  gap: 30px;
+}
+
+.results-box {
+  background: $c-background-secondary; // TBD
+  padding: 20px 10px;
+}
+
+.select-box {
+  &-label {
+    padding-right: 10px;
+  }
+}
+
+.error-msg {
+  display: block;
+  color: $c-error;
+  padding: 30px 10px;
+  opacity: 1;
+  transition: opacity ease-in 1s;
+  &--hidden {
+    opacity: 0;
+    display: none;
+  }
+}
