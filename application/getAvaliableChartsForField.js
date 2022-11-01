@@ -6,15 +6,15 @@ const TEXT = ['distinct', 'mode'];
 const DATES = ['min', 'max'];
 
 const CHARTS_BY_TYPE = {
-  Int16: NUMBERS,
-  Int32: NUMBERS,
-  Int64: NUMBERS,
-  Float16: NUMBERS,
-  Float32: NUMBERS,
-  Float64: NUMBERS,
-  String: TEXT,
-  DateTime: DATES,
-}
+  int16: NUMBERS,
+  int32: NUMBERS,
+  int64: NUMBERS,
+  float16: NUMBERS,
+  float32: NUMBERS,
+  float64: NUMBERS,
+  string: TEXT,
+  datetime: DATES,
+};
 
 export class GetAvaliableChartsForField {
   constructor(dataRepository) {
@@ -22,7 +22,7 @@ export class GetAvaliableChartsForField {
   }
 
   async execute(fieldName) {
-    const fieldItem = this.dataRepository.data.meta.find(element => element.name === fieldName);
-    return CHARTS_BY_TYPE[fieldItem.type];
+    const fieldItem = this.dataRepository.data.meta.find((element) => element.name === fieldName);
+    return CHARTS_BY_TYPE[fieldItem.type.toLowerCase()];
   }
 }
