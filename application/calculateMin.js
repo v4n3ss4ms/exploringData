@@ -4,7 +4,10 @@ export class CalculateMin {
       this.dataRepository = dataRepository;
   }
 
-  execute(fieldName, chart) {
-      return 'CalculateMin';
+  execute(fieldName) {
+    const data = this.dataRepository.data.data;
+    const result = data.reduce((prev, curr) => prev[fieldName] < curr[fieldName] ? prev : curr);
+
+    return result[fieldName];
   }
 }

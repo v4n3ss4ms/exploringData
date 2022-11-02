@@ -4,7 +4,7 @@ export class CalculateDistinct {
         this.dataRepository = dataRepository;
     }
 
-    execute(fieldName, chart) {
+    execute(fieldName) {
         return 'CalculateDistinct';
     }
 }

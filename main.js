@@ -10,18 +10,24 @@ import { CalculateDistinct } from './application/calculateDistinct.js';
 import { CalculateMode } from './application/calculateMode.js';
 import { GetChartResult } from './application/getChartResult.js';
 
-
 const dataRepository = new DataRepository(window.fetch);
 const getAllDataAvailable = new GetAllDataAvailable(dataRepository);
 const getFieldNames = new GetFieldNames(dataRepository);
 const getAvaliableChartsForField = new GetAvaliableChartsForField(dataRepository);
-const calculateMin  = new CalculateMin(dataRepository);
-const calculateMax  = new CalculateMax(dataRepository);
+const calculateMin = new CalculateMin(dataRepository);
+const calculateMax = new CalculateMax(dataRepository);
 const calculateAverage = new CalculateAverage(dataRepository);
 const calculateSum = new CalculateSum(dataRepository);
 const calculateDistinct = new CalculateDistinct(dataRepository);
 const calculateMode = new CalculateMode(dataRepository);
-const getChartResult = new GetChartResult(calculateMin, calculateMax, calculateAverage, calculateSum, calculateDistinct, calculateMode);
+const getChartResult = new GetChartResult(
+  calculateMin,
+  calculateMax,
+  calculateAverage,
+  calculateSum,
+  calculateDistinct,
+  calculateMode
+);
 
 const RESULT_ELEMENT = 'results-box';
 const ERROR_ELEMENT = 'error-msg';
@@ -38,13 +44,15 @@ const PARAMS_BY_ELEMENT_ID = {
 
 const showResult = () => {
   const chart = getUrlParam(CHART_PARAM);
-  const fieldName = getUrlParam(FIELD_NAME_PARAM);
-  const htmlElement = document.getElementsByClassName(RESULT_ELEMENT)[0];
-  
-  const result = getChartResult.execute(fieldName, chart);
-  
-  htmlElement.innerHTML = result;
-}
+  if (chart) {
+    const fieldName = getUrlParam(FIELD_NAME_PARAM);
+    const htmlElement = document.getElementsByClassName(RESULT_ELEMENT)[0];
+
+    const result = getChartResult.execute(fieldName, chart);
+
+    htmlElement.innerHTML = result;
+  }
+};
 
 const clearSelect = (elementId) => {
   const htmlElement = document.getElementById(elementId);
@@ -75,7 +83,7 @@ const setDefaultOptionSelected = (elementId) =>
 
 const setOptionSelected = (elementId, option) => {
   const optionElement = document.querySelector(`#${elementId} option[value='${option}']`);
-  
+
   if (optionElement) {
     optionElement.selected = true;
   } else {
@@ -97,12 +105,14 @@ const updateChartSelected = () => {
 };
 
 const chartFilterOnChange = (chart) => {
-  const fieldName = getUrlParam(FIELD_NAME_PARAM);
   setUrlParam(CHART_PARAM, chart);
   showResult();
 };
 
 const fieldNamesFilterOnChange = (fieldName) => {
+  const htmlElement = document.getElementsByClassName(RESULT_ELEMENT)[0];
+  
+  htmlElement.innerHTML = '';
   removeUrlParam(CHART_PARAM);
   setUrlParam(FIELD_NAME_PARAM, fieldName);
   getAvailableCharts(fieldName);

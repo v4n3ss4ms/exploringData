@@ -4,7 +4,7 @@ export class CalculateMode {
         this.dataRepository = dataRepository;
     }
 
-    execute(fieldName, chart) {
+    execute(fieldName) {
         return 'CalculateMode';
     }
 }

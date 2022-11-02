@@ -4,7 +4,10 @@ export class CalculateSum {
         this.dataRepository = dataRepository;
     }
 
-    execute(fieldName, chart) {
-        return 'CalculateSum';
+    execute(fieldName) {
+        const data = this.dataRepository.data.data;
+        const sum = data.reduce((acc, element) => acc + element[fieldName], 0);
+        
+        return sum;
     }
 }

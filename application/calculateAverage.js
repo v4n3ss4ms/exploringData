@@ -4,7 +4,7 @@ export class CalculateAverage {
         this.dataRepository = dataRepository;
     }
 
-    execute(fieldName, chart) {
+    execute(fieldName) {
         return 'CalculateAverage';
     }
 }
