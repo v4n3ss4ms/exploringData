@@ -1,10 +1,10 @@
-export class CalculateAverage {
+export class CalculateDistinct {
     
     constructor(dataRepository){
         this.dataRepository = dataRepository;
     }
 
     execute(fieldName, chart) {
-        return 'CalculateAverage';
+        return 'CalculateDistinct';
     }
 }

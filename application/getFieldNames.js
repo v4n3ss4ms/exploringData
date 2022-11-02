@@ -3,7 +3,7 @@ export class GetFieldNames {
     this.dataRepository = dataRepository;
   }
 
-  async execute() {
+  execute() {
     return this.dataRepository.data.meta.map((e) => e.name);
   }
 }

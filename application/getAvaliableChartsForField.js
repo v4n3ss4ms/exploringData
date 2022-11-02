@@ -21,7 +21,7 @@ export class GetAvaliableChartsForField {
     this.dataRepository = dataRepository;
   }
 
-  async execute(fieldName) {
+  execute(fieldName) {
     const fieldItem = this.dataRepository.data.meta.find((element) => element.name === fieldName);
     return CHARTS_BY_TYPE[fieldItem.type.toLowerCase()];
   }

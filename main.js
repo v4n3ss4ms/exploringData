@@ -2,15 +2,30 @@ import { DataRepository } from './domain/dataRepository.js';
 import { GetAllDataAvailable } from './application/getAllDataAvailable.js';
 import { GetFieldNames } from './application/getFieldNames.js';
 import { GetAvaliableChartsForField } from './application/getAvaliableChartsForField.js';
+import { CalculateMin } from './application/calculateMin.js';
+import { CalculateMax } from './application/calculateMax.js';
 import { CalculateAverage } from './application/calculateAverage.js';
+import { CalculateSum } from './application/calculateSum.js';
+import { CalculateDistinct } from './application/calculateDistinct.js';
+import { CalculateMode } from './application/calculateMode.js';
 import { GetChartResult } from './application/getChartResult.js';
+
 
 const dataRepository = new DataRepository(window.fetch);
 const getAllDataAvailable = new GetAllDataAvailable(dataRepository);
 const getFieldNames = new GetFieldNames(dataRepository);
 const getAvaliableChartsForField = new GetAvaliableChartsForField(dataRepository);
+const calculateMin  = new CalculateMin(dataRepository);
+const calculateMax  = new CalculateMax(dataRepository);
 const calculateAverage = new CalculateAverage(dataRepository);
-const getChartResult = new GetChartResult(dataRepository, calculateAverage);
+const calculateSum = new CalculateSum(dataRepository);
+const calculateDistinct = new CalculateDistinct(dataRepository);
+const calculateMode = new CalculateMode(dataRepository);
+const getChartResult = new GetChartResult(calculateMin, calculateMax, calculateAverage, calculateSum, calculateDistinct, calculateMode);
+
+const RESULT_ELEMENT = 'results-box';
+const ERROR_ELEMENT = 'error-msg';
+const ERROR_HIDDEN_CLASS = 'error-msg--hidden';
 
 const CHARTS_SELECT = 'chartTypesSelect';
 const FIELD_NAMES_SELECT = 'fieldNamesSelect';
@@ -20,6 +35,16 @@ const PARAMS_BY_ELEMENT_ID = {
   [FIELD_NAMES_SELECT]: FIELD_NAME_PARAM,
   [CHARTS_SELECT]: CHART_PARAM,
 };
+
+const showResult = () => {
+  const chart = getUrlParam(CHART_PARAM);
+  const fieldName = getUrlParam(FIELD_NAME_PARAM);
+  const htmlElement = document.getElementsByClassName(RESULT_ELEMENT)[0];
+  
+  const result = getChartResult.execute(fieldName, chart);
+  
+  htmlElement.innerHTML = result;
+}
 
 const clearSelect = (elementId) => {
   const htmlElement = document.getElementById(elementId);
@@ -58,8 +83,8 @@ const setOptionSelected = (elementId, option) => {
   }
 };
 
-const getAvailableCharts = async (fieldName) => {
-  const availableCharts = await getAvaliableChartsForField.execute(fieldName);
+const getAvailableCharts = (fieldName) => {
+  const availableCharts = getAvaliableChartsForField.execute(fieldName);
   clearSelect(CHARTS_SELECT);
   fillSelect(CHARTS_SELECT, availableCharts);
   updateChartSelected();
@@ -68,19 +93,19 @@ const getAvailableCharts = async (fieldName) => {
 const updateChartSelected = () => {
   const chartParam = getUrlParam(CHART_PARAM);
   setOptionSelected(CHARTS_SELECT, chartParam);
+  showResult();
 };
 
-const chartFilterOnChange = (value) => {
-  setUrlParam(CHART_PARAM, value);
-
-  // TBD: show result
-  // TBD: getChartData.execute(fieldName, chartType),
+const chartFilterOnChange = (chart) => {
+  const fieldName = getUrlParam(FIELD_NAME_PARAM);
+  setUrlParam(CHART_PARAM, chart);
+  showResult();
 };
 
-const fieldNamesFilterOnChange = (value) => {
+const fieldNamesFilterOnChange = (fieldName) => {
   removeUrlParam(CHART_PARAM);
-  setUrlParam(FIELD_NAME_PARAM, value);
-  getAvailableCharts(value);
+  setUrlParam(FIELD_NAME_PARAM, fieldName);
+  getAvailableCharts(fieldName);
 };
 
 const updateFiltersAccordingUrl = () => {
@@ -98,7 +123,7 @@ const updateFiltersAccordingUrl = () => {
 };
 
 const prepareFieldNamesFilter = async () => {
-  const fieldNames = await getFieldNames.execute();
+  const fieldNames = getFieldNames.execute();
 
   fillSelect(FIELD_NAMES_SELECT, fieldNames);
   updateFiltersAccordingUrl();
@@ -147,8 +172,8 @@ const init = async () => {
 try {
   await init();
 } catch (e) {
-  const errorElement = document.getElementsByClassName('error-msg')[0];
-  errorElement.classList.remove('error-msg--hidden');
+  const errorElement = document.getElementsByClassName(ERROR_ELEMENT)[0];
+  errorElement.classList.remove(ERROR_HIDDEN_CLASS);
   errorElement.innerHTML = 'error';
   console.error(e);
 }
