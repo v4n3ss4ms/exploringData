@@ -5,6 +5,9 @@ export class CalculateAverage {
     }
 
     execute(fieldName) {
-        return 'CalculateAverage';
+        const data = this.dataRepository.data.data;
+        const sum = data.reduce((acc, element) => acc + element[fieldName], 0);
+
+        return sum/data.length;
     }
 }
