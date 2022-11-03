@@ -7,7 +7,7 @@ export class GetChartResult {
     this.calculateDistinct = calculateDistinct;
     this.calculateMode = calculateMode;
   }
-//'min', 'max', 'average', 'sum', 'distinct', 'mode'
+
   execute(fieldName, chart) { 
     switch (chart) {
       case 'min':

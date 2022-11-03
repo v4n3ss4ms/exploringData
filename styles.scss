@@ -1,10 +1,10 @@
-@import "styles/reset";
-@import "styles/fonts";
-@import "styles/vars";
-@import "styles/base";
+@import 'styles/reset';
+@import 'styles/fonts';
+@import 'styles/vars';
+@import 'styles/base';
 
 // Components
-@import "styles/main";
+@import 'styles/main';
 
 body {
   font-family: $f-primary, Arial, sans-serif;
@@ -38,6 +38,7 @@ main {
 .results-box {
   background: $c-background-secondary; // TBD
   padding: 20px 10px;
+  word-wrap: break-word;
 }
 
 .select-box {

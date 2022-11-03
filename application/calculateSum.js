@@ -1,13 +1,12 @@
 export class CalculateSum {
-    
-    constructor(dataRepository){
-        this.dataRepository = dataRepository;
-    }
+  constructor(dataRepository) {
+    this.dataRepository = dataRepository;
+  }
 
-    execute(fieldName) {
-        const data = this.dataRepository.data.data;
-        const sum = data.reduce((acc, element) => acc + element[fieldName], 0);
-        
-        return sum;
-    }
+  execute(fieldName) {
+    const data = this.dataRepository.data.data;
+    const sum = data.reduce((acc, element) => acc + element[fieldName], 0);
+
+    return sum;
+  }
 }

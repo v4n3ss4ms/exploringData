@@ -50,7 +50,7 @@ const showResult = () => {
 
     const result = getChartResult.execute(fieldName, chart);
 
-    htmlElement.innerHTML = result;
+    htmlElement.innerHTML = `Result: ${result}`;
   }
 };
 
@@ -132,7 +132,7 @@ const updateFiltersAccordingUrl = () => {
   }
 };
 
-const prepareFieldNamesFilter = async () => {
+const prepareFieldNamesFilter = () => {
   const fieldNames = getFieldNames.execute();
 
   fillSelect(FIELD_NAMES_SELECT, fieldNames);
@@ -172,7 +172,7 @@ const init = async () => {
   console.log(data); // TBD: remove
   initializeFiltersByDefault();
 
-  await prepareFieldNamesFilter();
+  prepareFieldNamesFilter();
 
   document.getElementById(CHARTS_SELECT).addEventListener('change', function () {
     chartFilterOnChange(this.value);

@@ -6,7 +6,7 @@ export class CalculateDistinct {
   execute(fieldName) {
     const data = this.dataRepository.data.data;
     const extractData = data.map((e) => e[fieldName]);
-    const distinctData = [... new Set(extractData)];
+    const distinctData = [...new Set(extractData)];
 
     return distinctData;
   }

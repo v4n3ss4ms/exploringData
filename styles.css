@@ -104,6 +104,7 @@ main {
 .results-box {
   background: #e3e3e3;
   padding: 20px 10px;
+  word-wrap: break-word;
 }
 
 .select-box-label {
