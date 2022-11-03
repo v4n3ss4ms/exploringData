@@ -169,7 +169,6 @@ const removeUrlParam = (param) => {
 
 const init = async () => {
   const data = await getAllDataAvailable.execute();
-  console.log(data); // TBD: remove
   initializeFiltersByDefault();
 
   prepareFieldNamesFilter();
